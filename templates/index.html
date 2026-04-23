@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmoScan — Real-Time Emotion Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Background grid -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <header class="site-header">
+    <div class="logo">
+  <img src="{{ url_for('static', filename='assets/logo.png') }}" class="logo-img">
+  <span class="logo-text">EmoScan</span>
+</div>
+    <div class="status-pill" id="statusPill">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Initialising…</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="headline">
+        Read the room<br/>
+        <em>in real time</em>
+      </h1>
+      <p class="subline">
+       Your expressions, decoded by AI in real time.
+      </p>
+    </section>
+
+    <!-- ── Video arena ── -->
+    <div class="arena" id="arena">
+      <div class="arena-placeholder" id="arenaPlaceholder">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="placeholder-icon">
+          <rect x="10" y="18" width="60" height="44" rx="6" stroke="currentColor" stroke-width="3"/>
+          <circle cx="40" cy="40" r="11" stroke="currentColor" stroke-width="3"/>
+          <circle cx="40" cy="40" r="4" fill="currentColor"/>
+          <rect x="33" y="12" width="14" height="7" rx="3" fill="currentColor"/>
+        </svg>
+        <p>Camera feed will appear here</p>
+      </div>
+
+      <div class="video-wrapper" id="videoWrapper" style="display:none;">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="overlay"></canvas>
+      </div>
+
+      <!-- Scanning line animation -->
+      <div class="scan-line" id="scanLine" style="display:none;"></div>
+    </div>
+
+    <!-- ── Controls ── -->
+    <div class="controls">
+      <button class="btn-scan" id="btnScan">
+        <span class="btn-icon">◉</span>
+        <span class="btn-label">Scan Face</span>
+      </button>
+      <button class="btn-stop" id="btnStop" style="display:none;">
+        <span class="btn-icon">◼</span>
+        <span class="btn-label">Stop</span>
+      </button>
+    </div>
+
+    <!-- ── Stats bar ── -->
+    <div class="stats-bar" id="statsBar" style="display:none;">
+      <div class="stat">
+        <span class="stat-label">Faces detected</span>
+        <span class="stat-value" id="statFaces">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Dominant emotion</span>
+        <span class="stat-value" id="statEmotion">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Confidence</span>
+        <span class="stat-value" id="statConf">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">FPS</span>
+        <span class="stat-value" id="statFps">—</span>
+      </div>
+    </div>
+
+    <!-- ── Emotion bars (last frame) ── -->
+    <div class="emotion-panel" id="emotionPanel" style="display:none;">
+      <h3 class="panel-title">Emotion Distribution</h3>
+      <div class="emotion-bars" id="emotionBars"></div>
+    </div>
+
+    <!-- ── Error toast ── -->
+    <div class="toast" id="toast"></div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Powered by TensorFlow · Keras · OpenCV · Flask</span>
+  </footer>
+
+  <!-- <script src="script.js"></script> -->
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Data & Models
+emotion_app/data/*.csv
+emotion_app/model/*.h5
+
